@@ -37,15 +37,17 @@ namespace descartes_core
 
    EigenSTL::vector_Affine3d rtn;
 
+   Eigen::Affine3d sampled_frame;
+
    if(pos_increment < 0.0 || orient_increment < 0.0)
    {
      ROS_WARN_STREAM("Negative position/orientation intcrement: " << pos_increment
-                     << "/" << orient_increment);
+                     << "/" << orient_increment << ", returning nominal frame (no sampling)");
      rtn.clear();
+     rtn.push_back(frame.frame);
      return rtn;
    }
 
-  Eigen::Affine3d sampled_frame;
 
   // Calculating the number of samples for each tolerance (position and orientation)
   size_t ntx, nty, ntz, nrx, nry, nrz;
